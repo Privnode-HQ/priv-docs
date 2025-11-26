@@ -1,13 +1,104 @@
 ---
-title: Hello World
-description: Your first document
+title: 分组介绍
+description: 此文档介绍了 Privnode 的分组与倍率概念。
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { GroupDetails} from "../../components/group-details";
 
-## What is Next?
+## 什么是分组？
 
-<Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.dev" />
-</Cards>
+分组 Privnode 中的一个概念，每个分组对应一个渠道类型。以进行分类、避免混乱，并使得用户可根据需要选择。
+
+## 如何查看可用分组、模型
+
+在[模型广场](//privnode.com/pricing)中，右侧的*可用令牌分组*部分列出了所有可用的分组及它们的倍率。
+
+### 什么是倍率？
+
+左侧分组名后显示的类似`x0.5`就是该分组的倍率。
+
+倍率的含义是实际扣费时会乘以该分组的倍率作为最终消耗的额度。
+
+示例：
+
+- 倍率 `0.5`，则原本应消耗 \$1.00，实际消耗 \$0.50。
+- 倍率 `1.5`，则原本应消耗 \$1.00，实际消耗 \$1.50。
+
+
+## 令牌分组介绍
+
+### 主要分组
+
+<Accordions>
+    <Accordion title="default">
+        <GroupDetails group="default" thirdParty={true} cliSupported={["无"]} ratio={1}>
+            混合分组，没有对模型进行特定区分，一些测试模型，或无需分类的模型，以及其他模型会归类在这个分组中，不推荐使用。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="Claude Code">
+        <GroupDetails group="Claude Code" thirdParty={false} cliSupported={["Claude Code"]} ratio={0.35}>
+            **使用 Claude Code 需要选择此分组**。主要分组之一，仅可在 Claude Code 使用。不可在第三方客户端使用。如果被检测到将封禁 Privnode 账户。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="Codex">
+        <GroupDetails group="Codex" thirdParty={true} cliSupported={["Codex"]} ratio={0.2}>
+            **使用 OpenAI Codex 需要选择此分组**。主要分组之一，提供 Codex 系列模型。虽然不推荐，但可在第三方客户端使用。
+        </GroupDetails>
+    </Accordion>
+</Accordions>
+
+### 其他
+
+<Accordions>
+    <Accordion title="AWS Bedrock">
+        <GroupDetails group="AWS Bedrock" thirdParty={true} cliSupported={["Claude Code"]} ratio={4.2}>
+            AWS Bedrock 直连分组，满血 API，非逆向，最稳定。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="Azure">
+        <GroupDetails group="Azure" thirdParty={true} cliSupported={["Codex"]} ratio={0.4}>
+            稳定，Azure API 分组。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="Azure L1">
+        <GroupDetails group="Azure L1" thirdParty={true} cliSupported={["Codex"]} ratio={0.7}>
+            稳定，满血 API，L1 账户。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="Claude NSFW">
+        <GroupDetails group="Claude NSFW" thirdParty={true} cliSupported={["Claude Code"]} ratio={0.7}>
+            无道德审查，可进行角色扮演等*不适宜工作场所*内容。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="Claude 特价">
+        <GroupDetails group="Claude 特价" thirdParty={true} cliSupported={["Claude Code"]} ratio={0.35}>
+            可在 CC 外使用的低价分组。Droid 逆向。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="Grok">
+        <GroupDetails group="Grok" thirdParty={true} cliSupported={["无"]} ratio={0.4}>
+            Grok 官逆分组。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="Vertex">
+        <GroupDetails group="Vertex" thirdParty={true} cliSupported={["Gemini CLI"]} ratio={0.5}>
+            纯 Vertex 分组，满血 Gemini。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="Gemini CLI">
+        <GroupDetails group="Gemini CLI" thirdParty={true} cliSupported={["Gemini CLI"]} ratio={0.5}>
+            「实验性」Gemini CLI 分组。不稳定。推荐使用 Vertex 分组替代。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="Gemini 3">
+        <GroupDetails group="Gemini 3" thirdParty={true} cliSupported={["Gemini CLI"]} ratio={0.35}>
+            「实验性」Gemini 3 专用分组。实验性低价。建议使用 Vertex 分组替代。
+        </GroupDetails>
+    </Accordion>
+    <Accordion title="free">
+        <GroupDetails group="free" thirdParty={true} cliSupported={["无"]} ratio={0}>
+            「免费」随机可用的免费模型。
+        </GroupDetails>
+    </Accordion>
+</Accordions>

@@ -1,0 +1,30 @@
+---
+title: 一键配置指南（推荐）
+description: PrivCLI 是 Privnode 发布的一款自动配置工具，可自动配置任意支持的 Coding CLI 工具。
+---
+
+import { Steps, Step } from "fumadocs-ui/components/steps";
+
+## 使用方法
+
+<Steps>
+    <Step>
+        ### 确保 Node.js 与 npm 已安装
+
+        运行
+        ```
+        npm -v
+        ```
+        如果有输出，则可以下一步。
+        如果报错未找到命令，请参考[ Node.js 安装指南](https://www.runoob.com/nodejs/nodejs-install-setup.html)。
+    </Step>
+    <Step>
+        ### 一键配置
+
+        运行
+        ```
+        npx @privnode/cli@latest auto
+        ```
+        随后遵循终端中的指南即可自动配置。
+    </Step>
+</Steps>

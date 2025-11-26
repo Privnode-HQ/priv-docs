@@ -1,0 +1,117 @@
+---
+title: 常见问题（FAQ）
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { Steps, Step } from "fumadocs-ui/components/steps";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+
+
+## Codex
+
+<Accordions>
+    <Accordion title="Windows 系统下输出乱码">
+        <Steps>
+            <Step>
+                按下快捷键 <kbd>Win</kbd> <kbd>R</kbd>，打开左下角运行窗口。
+            </Step>
+            <Step>
+                输入：
+                ```
+                intl.cpl
+                ```
+                后回车。
+            </Step>
+            <Step>
+                点击上方选项卡“管理”。
+            </Step>
+            <Step>
+                点击窗口中的“更改系统区域设置”按钮。
+            </Step>
+            <Step>
+                勾选弹出的新窗口中的“Beta 版：使用 Unicode UTF-8 提供全球语言支持(U)”，并点击“确定”按钮。
+            </Step>
+            <Step>
+                在区域设置窗口中点击“确定”。
+            </Step>
+            <Step>
+                重启您的 Windows 设备。
+            </Step>
+            <Step>
+                此问题应被缓解。
+            </Step>
+        </Steps>
+    </Accordion>
+    <Accordion title="Connection failed: error sending request">
+        报错信息类似为：
+        ```
+        Connection failed: error sending request for url (https://privnode.com/v1/responses)
+        ```
+        这种情况表示你的本地网络无法连接到 Privnode 服务。按如下顺序检查：
+        <Steps>
+            <Step>
+                检查本机网络是否通畅，能否访问 [https://privnode.com](https://privnode.com)。
+            </Step>
+            <Step>
+                尝试开启或关闭代理。（不建议使用 TUN 模式）
+            </Step>
+            <Step>
+                使用终端运行 Codex，尝试在CLI中发送信息，判断是否是 VSCode 问题，如是，重启 VSCode 进行尝试。
+            </Step>
+        </Steps>
+    </Accordion>
+    <Accordion title="401 Unauthorized">
+        报错信息类似为：
+        ```
+        exceeded retry limit, last status: 401 Unauthorized, request id: xxxxxx
+        ```
+        这种情况表示你的 Base URL / API Key 设置存在问题。按如下顺序检查：
+
+        <Tabs items={['Windows', 'MacOS']} defaultIndex={1} groupId="os">
+            <Tab value="Windows">
+                <Steps>
+                    <Step>
+                        在 PowerShell 中运行：
+                        ```
+                        cmd /c "if defined OPENAI_API_KEY (echo OPENAI_API_KEY=OK) else (echo OPENAI_API_KEY=MISSING) & if defined OPENAI_BASE_URL (echo OPENAI_BASE_URL=OK) else (echo OPENAI_BASE_URL=MISSING) & echo %OPENAI_BASE_URL% | findstr /C:\"privnode.com/v1\" >nul && echo BASE_URL_CHECK=OK || echo BASE_URL_CHECK=ERROR"
+                        ```
+                    </Step>
+                    <Step>
+                        如果上一步输出包含 `MISSING` 或 `ERROR`，则跳过下一步。
+                    </Step>
+                    <Step>
+                        执行：
+                        ```
+                        cmd /c "setx OPENAI_API_KEY \"\" & setx OPENAI_BASE_URL \"\""
+                        ```
+                    </Step>
+                    <Step>
+                        参考[Codex CLI 配置指南](/docs/configs/codex)一章。
+                    </Step>
+                </Steps>
+            </Tab>
+            <Tab value="MacOS">
+                <Steps>
+                    <Step>
+                        在终端中运行：
+                        ```
+                        [ -n "$OPENAI_API_KEY" ] && echo OPENAI_API_KEY=OK || echo OPENAI_API_KEY=MISSING; [ -n "$OPENAI_BASE_URL" ] && echo OPENAI_BASE_URL=OK || echo OPENAI_BASE_URL=MISSING; echo "$OPENAI_BASE_URL" | grep -q "privnode.com/v1" && echo BASE_URL_CHECK=OK || echo BASE_URL_CHECK=ERROR
+                        ```
+                    </Step>
+                    <Step>
+                        如果上一步输出包含 `MISSING` 或 `ERROR`，则跳过下一步。
+                    </Step>
+                    <Step>
+                        执行：
+                        ```
+                        unset OPENAI_API_KEY OPENAI_BASE_URL
+                        ```
+                    </Step>
+                    <Step>
+                        参考[Codex CLI 配置指南](/docs/configs/codex)一章。
+                    </Step>
+                </Steps>
+            </Tab>
+        </Tabs>
+    </Accordion>
+</Accordions>
